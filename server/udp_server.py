@@ -1,5 +1,5 @@
 import socket
-from tcp_server import TCP_IP, TCP_PORT 
+from tcp_server import IP_HOST, TCP_PORT 
 
 # VARIAVEIS DE AMBIENTE
 UDP_IP = "0.0.0.0"  # IP do Servidor UDP - "escutar em todas as interfaces de rede"
@@ -34,5 +34,5 @@ while True:
 
     # Não recebe mensagens desconhecidas, apenas de descoberta do servidor do chat "DISCOVER_CHAT"
     if message == "DISCOVER_CHAT":
-        response = f"{TCP_IP}:{TCP_PORT}"
+        response = f"{IP_HOST}:{TCP_PORT}"
         socket_udp.sendto(response.encode(), address)
