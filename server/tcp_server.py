@@ -1,10 +1,17 @@
 import socket
 import threading
 
+import grpc
+import chat_pb2
+import chat_pb2_grpc
+
 # VARIAVEIS DE AMBIENTE
 IP_HOST = "192.168.0.10"        # IP da Máquina do Servidor TCP (substituir pelo IP da maquina do server TCP - Ex.: 192.168.X.X)
 TCP_IP = "0.0.0.0"              # IP do Servidor TCP - "escutar em todas as interfaces de rede"
 TCP_PORT = 7000                 # Porta do Servidor TCP
+
+channel = grpc.insecure_channel(IP_HOST+":8000")
+stub = chat_pb2_grpc.ChatHistoryStub(channel)
 
 socket_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)      # Rede IPv4 + Datagrama TCP
 
@@ -30,15 +37,35 @@ def handle_client(client_socket):
             if not message:
                 break
 
+            decoded_message = message.decode().strip()
+
             # DEBUG
-            print(f"Mensagem - {message}")
+            print(f"Mensagem recebida: {decoded_message}")
+
+            # Separar usuario e texto
+            if ":" in decoded_message:
+                user, text = decoded_message.split(":", 1)
+                user = user.strip()
+                text = text.strip()
+            else:
+                user = "desconhecido"
+                text = decoded_message
+
+            # Salvar no gRPC
+            stub.SaveMessage(
+                chat_pb2.MessageRequest(
+                    user=user,
+                    text=text
+                )
+            )
             
             # Enviar mensagens para todos os clientes conectados
             for client in clients:
                 if client != client_socket:
                     client.send(message)
 
-        except:
+        except Exception as e:
+            print(f"Erro no cliente: {e}")
             break
     
     # DEBUG
