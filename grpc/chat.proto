@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package chat;
+
+message MessageRequest {
+  string user = 1;
+  string text = 2;
+}
+
+message Empty {}
+
+message Message {
+  string user = 1;
+  string text = 2;
+}
+
+message MessageList {
+  repeated Message messages = 1;
+}
+
+service ChatHistory {
+  rpc SaveMessage (MessageRequest) returns (Empty);
+  rpc ListMessages (Empty) returns (MessageList);
+}
