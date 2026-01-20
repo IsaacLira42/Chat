@@ -7,7 +7,7 @@ UDP_PORT = 8080     # Porta do Servidor UDP
 
 socket_udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)   # Rede IPv4 + Datagrama UDP
 
-socket_udp.bind((UDP_IP, UDP_PORT))                             # Escutando todas as mensagens enviadas para tupla de IP:Porta 
+socket_udp.bind((UDP_IP, UDP_PORT))                             # Definir para onde as mensagens serão enviadas - tupla de IP:Porta 
 
 print("🚀Servidor UDP ativo \n")
 
