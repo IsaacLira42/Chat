@@ -203,3 +203,7 @@ O projeto permite:
 ### [DevJoaoVitorB](https://github.com/DevJoaoVitorB)
 
 ### [IsaacLira42](https://github.com/IsaacLira42)
+
+## Apresentação
+
+### [Slide](https://www.canva.com/design/DAG6HXYpka4/Q_EDhgErn2XkbDJA8K78gQ/edit?utm_content=DAG6HXYpka4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
